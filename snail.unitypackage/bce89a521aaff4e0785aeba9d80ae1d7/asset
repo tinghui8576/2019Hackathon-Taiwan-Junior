@@ -1,0 +1,71 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class manage: MonoBehaviour
+{
+    // Start is called before the first frame update
+    public Canvas gameObject1;
+    public Canvas gameObject2;
+    
+
+
+    public Canvas textboxe;
+    public Canvas textboxz;
+    //public Canvas diary;
+
+    private int count = 0;
+    
+    private bool Allowed;
+    private bool close;
+    void Start(){
+        textboxe.gameObject.SetActive(true);
+        textboxz.gameObject.SetActive(false);
+        gameObject1.gameObject.SetActive(true);
+        gameObject2.gameObject.SetActive(true);
+        //gameObject3.gameObject.SetActive(true);
+        //diary.gameObject.SetActive(false);
+        close = false;
+        Allowed = true;
+        
+    }
+
+    // Update is called once per frame
+    void Update(){
+        if (Allowed && Input.GetKeyDown(KeyCode.E) && close == false&&count == 0)
+        {
+            looking1();
+            count++;
+        }
+        else if(Allowed && Input.GetKeyDown(KeyCode.E) && close == false&&count == 1)
+        {
+            looking2();
+            count++;
+        }
+        
+        if (close && Input.GetKeyDown(KeyCode.Z)){
+            SceneManager.LoadScene("Scene1");
+        }
+
+    }
+
+    
+    private void looking1()
+    {
+        gameObject1.gameObject.SetActive(false);
+    }
+    private void looking2()
+    {
+        gameObject2.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(true);
+        textboxe.gameObject.SetActive(false);
+        close = true;
+        Allowed = false;
+    }
+    
+    private void closing(){
+        
+    }
+}

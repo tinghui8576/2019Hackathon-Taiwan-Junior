@@ -1,0 +1,29 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class collide : MonoBehaviour
+{
+   // public bool collide = false;
+    public Canvas can; 
+    public Canvas can2;
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    private void OnTriggerEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.name.Equals("gua"))
+        {
+            can.gameObject.SetActive(false);
+            can2.gameObject.SetActive(false);
+            Debug.Log("woe");
+        }
+    }
+}

@@ -1,0 +1,44 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
+
+public class door_talk : MonoBehaviour
+{
+    // Start is called before the first frame update
+    
+
+    
+    public Canvas diary;
+
+    public GameObject mirror2; 
+    public GameObject waterbowl22;  
+    public GameObject bythedoor22;
+    
+    public bool m_c ;
+    public bool w_c;
+    public bool b_c;
+
+    bool yay = true;
+    
+    void Start(){
+        diary.gameObject.SetActive(false);
+    }
+
+    // Update is called once per frame
+    void Update(){
+        m_c = mirror2.GetComponent<look_mirror>().mirrorcheck;
+        w_c = waterbowl22.GetComponent<look_waterbowl>().waterbowlcheck;
+        b_c = bythedoor22.GetComponent<bythedoor>().doorcheck;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (m_c&&w_c&&collision.gameObject.name.Equals("gua")&&yay){
+            diary.gameObject.SetActive(true);
+            yay = false;
+        }
+    }
+   
+    
+}

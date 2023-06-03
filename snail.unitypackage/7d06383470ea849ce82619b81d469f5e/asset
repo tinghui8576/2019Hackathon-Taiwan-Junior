@@ -1,0 +1,96 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class readbook : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public GameObject mirror;
+    public GameObject waterbowl;
+    public GameObject doorlock;
+    public Canvas diary;
+    public Canvas diary2;
+    public Canvas diary3;
+    public GameObject coll;
+
+    public bool m_c ;
+    public bool w_c;
+    public bool d_c;
+    private bool Allowed;
+    private bool close;
+    private bool speak1;
+    private bool speak2;
+    private int count;
+
+    public bool readbookcheck;
+
+    public Canvas textboxe;
+    public Canvas textboxz;
+    void Start()
+    {
+        textboxe.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(false);
+        diary.gameObject.SetActive(false);
+        diary2.gameObject.SetActive(false);
+        diary3.gameObject.SetActive(false);
+        close = false;
+        readbookcheck = false;
+        count = 0;
+        speak1 = true;
+        speak2 = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        m_c = mirror.GetComponent<look_mirror>().mirrorcheck;
+        w_c = waterbowl.GetComponent<look_waterbowl>().waterbowlcheck;
+        d_c = doorlock.GetComponent<doorlock>().doorlockcheck;
+    
+        if (Allowed && Input.GetKeyDown(KeyCode.E) && close == false&&m_c&&w_c&&d_c)
+        {
+            looking();
+            readbookcheck = true;
+        }
+        if (close && Input.GetKeyDown(KeyCode.Z))
+        {
+            closing();
+            if(speak1==false&&speak2==true)
+            {
+            //diary2.gameObject.SetActive(true);
+            //diary3.gameObject.SetActive(true);
+            speak2= false;
+            }
+        }
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if(collision.gameObject.name.Equals("gua")&&m_c&&w_c&&d_c)
+        {
+            textboxe.gameObject.SetActive(true);
+            Allowed = true;
+
+            
+        }
+    }
+     
+    private void looking()
+    {
+        //Destroy(gameObject);
+        diary.gameObject.SetActive(true);
+        textboxz.gameObject.SetActive(true);
+        textboxe.gameObject.SetActive(false);
+        
+        close = true;
+    }
+    private void closing(){
+        diary.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(false);
+        textboxe.gameObject.SetActive(true);
+        
+        close = false;
+        speak1 = false;
+    }
+}

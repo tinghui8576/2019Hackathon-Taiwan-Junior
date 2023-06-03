@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class bythedoor : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public bool doorcheck = false;
+
+    public GameObject mirror;
+    public GameObject waterbowl;
+    public Canvas diary;
+
+    
+
+    public bool m_c ;
+    public bool w_c;
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        m_c = mirror.GetComponent<look_mirror>().mirrorcheck;
+        w_c = waterbowl.GetComponent<look_waterbowl>().waterbowlcheck;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (m_c&&w_c&&collision.gameObject.name.Equals("gua")){
+            doorcheck = true;
+            
+        }
+        if(m_c&&w_c&&collision.gameObject.name.Equals("gua")&&doorcheck)
+        {
+            diary.gameObject.SetActive(false);
+        }
+    }
+    
+}

@@ -1,0 +1,89 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Threading;
+
+public class doorlock : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public GameObject mirror;
+    public GameObject waterbowl;
+    public Canvas diary;
+    public Canvas diary2;
+    public bool m_c ;
+    public bool w_c;
+    private bool Allowed;
+    private bool close;
+
+    public bool doorlockcheck;
+
+    public Canvas textboxe;
+    public Canvas textboxz;
+    void Start()
+    {
+        textboxe.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(false);
+        diary.gameObject.SetActive(false);
+        diary2.gameObject.SetActive(false);
+        close = false;
+        doorlockcheck = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        m_c = mirror.GetComponent<look_mirror>().mirrorcheck;
+        w_c = waterbowl.GetComponent<look_waterbowl>().waterbowlcheck;
+        if (Allowed && Input.GetKeyDown(KeyCode.E) && close == false&&m_c&&w_c)
+        {
+            looking();
+            looking2();
+            doorlockcheck = true;
+        }
+        if (close && Input.GetKeyDown(KeyCode.Z))
+        {
+            closing();
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+        if(collision.gameObject.name.Equals("gua")&&m_c&&w_c)
+        {
+            textboxe.gameObject.SetActive(true);
+            Allowed = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Equals("gua"))
+        {
+            textboxe.gameObject.SetActive(false);
+            Allowed = false;
+        }
+    }
+    private void looking()
+    {
+        //Destroy(gameObject);
+        textboxz.gameObject.SetActive(true);
+        textboxe.gameObject.SetActive(false);
+        diary.gameObject.SetActive(true);
+        
+        
+        
+        close = true;
+    }
+    private void looking2(){
+        diary2.gameObject.SetActive(true);
+        //Thread.Sleep(2000);
+
+    }
+    private void closing(){
+        diary.gameObject.SetActive(false);
+        diary2.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(false);
+        textboxe.gameObject.SetActive(true);
+        close = false;
+    }
+}

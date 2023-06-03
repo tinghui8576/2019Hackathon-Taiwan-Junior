@@ -1,0 +1,23 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class gameManager : MonoBehaviour
+{
+    [SerializeField]
+    private GameObject yay;
+    [SerializeField]
+    private GameObject ya;
+
+    public void Endgame()
+    {
+        Debug.Log("Restart!");
+        Restart();
+    }
+    public void Restart()
+    {
+        //yay.transform.position = new Vector3(-4f,2f,0f);
+        yay.transform.position = ya.transform.position;
+    }
+}

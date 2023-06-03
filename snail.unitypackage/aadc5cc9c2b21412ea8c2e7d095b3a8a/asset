@@ -1,0 +1,73 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine;
+
+public class look_waterbowl : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public Canvas textboxe;
+    public Canvas textboxz;
+    public Canvas diary;
+
+    public bool waterbowlcheck ;
+
+    private bool Allowed;
+    private bool close;
+    void Start(){
+        textboxe.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(false);
+        diary.gameObject.SetActive(false);
+        close = false;
+        waterbowlcheck = false;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Allowed && Input.GetKeyDown(KeyCode.E) && close == false)
+        {
+            looking();
+            waterbowlcheck = true;
+        }
+        if (close && Input.GetKeyDown(KeyCode.Z))
+        {
+            closing();
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Equals("gua"))
+        {
+            textboxe.gameObject.SetActive(true);
+            Allowed = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Equals("gua"))
+        {
+            textboxe.gameObject.SetActive(false);
+            Allowed = false;
+        }
+    }
+    private void looking()
+    {
+        //Destroy(gameObject);
+        diary.gameObject.SetActive(true);
+        textboxz.gameObject.SetActive(true);
+        textboxe.gameObject.SetActive(false);
+        close = true;
+
+
+    }
+    private void closing()
+    {
+        diary.gameObject.SetActive(false);
+        textboxz.gameObject.SetActive(false);
+        textboxe.gameObject.SetActive(true);
+        close = false;
+    }
+}
